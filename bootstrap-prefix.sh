@@ -1787,7 +1787,6 @@ bootstrap_stage2() {
 		app-shells/bash
 		app-arch/xz-utils
 		sys-apps/sed
-		sys-apps/baselayout-prefix
 		dev-libs/libffi
 		sys-devel/m4
 		sys-devel/flex
@@ -2051,7 +2050,7 @@ bootstrap_stage3() {
 			app-portage/elt-patches
 			app-arch/xz-utils
 			sys-apps/sed
-			sys-apps/baselayout-prefix
+			sys-apps/baselayout
 			sys-devel/m4
 			sys-devel/flex
 			sys-devel/binutils-config
