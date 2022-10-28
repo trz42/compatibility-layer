@@ -35,11 +35,22 @@
   register: repositories_installed
   changed_when: false
 
+  #- name: Remove custom overlay configuration
+  #ansible.builtin.command:
+  #  cmd: "eselect repository remove {{ item.name }}"
+  #loop: "{{ custom_overlays }}"
+
 - name: Add custom overlay configuration
   ansible.builtin.command:
     cmd: "eselect repository add {{ item.name }} {{ item.source }} {{ item.url }}"
   when: item.name not in repositories_installed.stdout
   loop: "{{ custom_overlays }}"
+
+  #- name: Sync custom overlay configuration
+  #ansible.builtin.command:
+  #  cmd: "emaint sync -r {{ item.name }}"
+  #when: item.name in repositories_installed.stdout
+  #loop: "{{ custom_overlays }}"
 
 - name: Make configuration file with overlays that can override eclasses
   ansible.builtin.copy:
