@@ -210,7 +210,7 @@ class GentooOverlayGitTest(RunInGentooPrefixTest):
         gentoo_git_repo_info = '''gentoo
     location: %s
     sync-type: git
-    sync-uri: https://github.com/gentoo/gentoo.git''' % gentoo_repo_dir
+    sync-uri: https://github.com/trz42/gentoo.git''' % gentoo_repo_dir
 
         self.sanity_patterns = sn.assert_found(gentoo_git_repo_info, self.stdout)
 

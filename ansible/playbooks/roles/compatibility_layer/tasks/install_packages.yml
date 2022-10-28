@@ -28,4 +28,4 @@
     group: "{{ username_on_host.stdout }}"
     path: "{{ gentoo_prefix_path }}"
     recurse: true
-  become: false
+  become: true

@@ -1,6 +1,10 @@
 # Install Gentoo Prefix.
 ---
 
+#- name: debug variables
+#  ansible.builtin.debug:
+#    var: prefix_singularity_command
+
 - name: Fail if host OS is not supported
   ansible.builtin.fail:
     msg: |
