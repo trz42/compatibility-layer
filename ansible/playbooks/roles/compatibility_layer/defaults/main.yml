@@ -42,7 +42,7 @@ prefix_mask_packages: |
   >=sys-libs/glibc-2.34
   # stick to GCC 9.x; using a too recent compiler in the compat layer complicates stuff in the software layer,
   # see for example https://github.com/EESSI/software-layer/issues/151
-  >=sys-devel/gcc-11
+  >=sys-devel/gcc-10.4.1
   # avoid libgcrypt 1.9.4 due to compiler errros on ppc64le,
   # see https://github.com/EESSI/compatibility-layer/issues/134 + https://bugs.gentoo.org/825722
   =dev-libs/libgcrypt-1.9.4
