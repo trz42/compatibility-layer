@@ -10,6 +10,15 @@
   with_items: "{{ prefix_locales }}"
   notify: Generate locales
 
+- name: Check which GCC versions are available
+  ansible.builtin.command: "{{ gentoo_prefix_path }}/usr/bin/gcc-config --list-profiles"
+
+- name: Check which GCC version is configured
+  ansible.builtin.command: "{{ gentoo_prefix_path }}/usr/bin/gcc-config --get-current-profile"
+
+- name: Print current GCC environment
+  ansible.builtin.command: "{{ gentoo_prefix_path }}/usr/bin/gcc-config --print-environ"
+
 # Set default compiler in compat layer.
 # We should not use the latest version of GCC here, since that will probably cause problems
 # when building older GCC versions with EasyBuild in the software layer.
