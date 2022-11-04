@@ -7,6 +7,10 @@ custom_overlays:
     source: git
     url: https://github.com/trz42/gentoo-overlay.git
     eclass-overrides: true
+  - name: guru
+    source: git
+    url: https://github.com/gentoo-mirror/guru.git
+    eclass-overrides: true
 
 cvmfs_start_transaction: false
 cvmfs_publish_transaction: false
@@ -41,7 +45,7 @@ prefix_mask_packages: |
   # avoid glibc 2.34, as it's causing issues with the bootstrap, and it's not compatible with CUDA 11.
   # see https://github.com/EESSI/compatibility-layer/issues/137 + https://bugs.gentoo.org/824482
   >=sys-libs/glibc-2.34
-  # stick to GCC 10.4.0; using a too recent compiler in the compat layer complicates stuff in the software l
+  # stick to GCC 10.4.0; using a too recent compiler in the compat layer complicates stuff in the software layer,
   # see for example https://github.com/EESSI/software-layer/issues/151
   >=sys-devel/gcc-10.4.1
   # avoid libgcrypt 1.9.4 due to compiler errros on ppc64le,
