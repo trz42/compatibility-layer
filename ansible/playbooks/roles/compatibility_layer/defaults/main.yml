@@ -37,7 +37,9 @@ gentoo_git_repo: https://github.com/gentoo/gentoo.git
 #   we mask sys-devel/gcc below to not install anything newer than 10.4.0
 # gentoo_git_commit: c2d8ce0e1b6206a225a9f2547bbc65c79218756c
 # 2022.11 (Nov 3 2022) second iteration made for PR
-gentoo_git_commit: cec3214ef5d5661e28c9d2c5b5750b27c27c5435
+# gentoo_git_commit: cec3214ef5d5661e28c9d2c5b5750b27c27c5435
+# 2022.11 (Nov 5 2022) third iteration made for PR
+gentoo_git_commit: c75826ff57626ca01a8be14fbf42995adbd9f48d
 prefix_required_space: 15 GB
 # version increased to meet requirement of bootstrap procedure
 prefix_default_gcc: 10.4.0
