@@ -39,7 +39,11 @@ gentoo_git_repo: https://github.com/gentoo/gentoo.git
 # 2022.11 (Nov 3 2022) second iteration made for PR
 # gentoo_git_commit: cec3214ef5d5661e28c9d2c5b5750b27c27c5435
 # 2022.11 (Nov 5 2022) third iteration made for PR
-gentoo_git_commit: c75826ff57626ca01a8be14fbf42995adbd9f48d
+#   failed while building glibc-2.33-r14
+# gentoo_git_commit: c75826ff57626ca01a8be14fbf42995adbd9f48d
+# 2022.11 (Nov 3 2022) forth iteration made for PR
+#   retrying older commit that worked before
+gentoo_git_commit: cec3214ef5d5661e28c9d2c5b5750b27c27c5435
 prefix_required_space: 15 GB
 # version increased to meet requirement of bootstrap procedure
 prefix_default_gcc: 10.4.0
