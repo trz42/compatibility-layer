@@ -1,0 +1,22 @@
+# documentation: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+name: Sends heartbeat to Smee channel
+on:
+  schedule:
+    # run check hourly
+    # * is a special character in YAML so you have to quote this string
+    - cron: '00 * * * *'
+# Declare default permissions as read only.
+permissions: read-all
+jobs:
+  heartbeat:
+    runs-on: ubuntu-20.04
+    steps:
+        - name: Check out code
+          uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+
+        - name: Ping bot
+          env:
+            KEY: ${{ secrets.BOT_HEARTBEAT_KEY }}
+            SMEE: ${{ secrets.BOT_HEARTBEAT_SMEE }}
+          run: |
+            ./bot/send_event.sh @./bot/heartbeat.json
