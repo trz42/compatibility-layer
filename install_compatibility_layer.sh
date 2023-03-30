@@ -128,6 +128,7 @@ echo "Executing ${ANSIBLE_COMMAND} in ${CONTAINER}, this will take a while..."
 ${RUNTIME} shell ${CONTAINER} <<EOF
 # The Gentoo Prefix bootstrap script will complain if $LD_LIBRARY_PATH is set
 unset LD_LIBRARY_PATH
+unset PKG_CONFIG_PATH
 ${ANSIBLE_COMMAND}
 EOF
 
