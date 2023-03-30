@@ -75,6 +75,9 @@ if [ ! -f "${SCRIPT_DIR}/ansible/playbooks/install.yml" ]; then
     exit 1
 fi
 
+# source utils.sh (for get_container_runtime and check_exit_code)
+source ${SCRIPT_DIR}/scripts/utils.sh
+
 # Check if the target architecture is set to the architecture of the current host,
 # as that's the only thing that's currently supported by this script
 HOST_ARCH=$(uname -m)
