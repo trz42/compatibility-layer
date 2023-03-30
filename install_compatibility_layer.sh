@@ -101,7 +101,9 @@ mkdir -p ${EESSI_TMPDIR}/cvmfs
 mkdir -p ${EESSI_TMPDIR}/home
 
 RUNTIME=$(get_container_runtime)
-check_exit_code $? "using runtime ${RUNTIME}" "oh no, neither apptainer nor singularity"
+exit_code=$?
+echo "RUNTIME='${RUNTIME}'"
+check_exit_code ${exit_code} "using runtime ${RUNTIME}" "oh no, neither apptainer nor singularity"
 
 # Set up paths and mount points for Apptainer
 export APPTAINER_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
