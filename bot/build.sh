@@ -49,6 +49,18 @@ HTTPS_PROXY=$(cfg_get_value "site_config" "https_proxy")
 HTTPS_PROXY=${HTTPS_PROXY:-${https_proxy}}
 echo "bot/build.sh: HTTPS_PROXY='${HTTPS_PROXY}'"
 
+LOCAL_TMP=$(cfg_get_value "site_config" "local_tmp")
+echo "bot/build.sh: LOCAL_TMP='${LOCAL_TMP}'"
+
+echo -n "setting \$STORAGE by replacing any var in '${LOCAL_TMP}' -> "
+# replace any env variable in ${LOCAL_TMP} with its
+#   current value (e.g., a value that is local to the job)
+STORAGE=$(envsubst <<< ${LOCAL_TMP})
+echo "'${STORAGE}'"
+
+# make sure ${STORAGE} exists
+mkdir -p ${STORAGE}
+
 # obtain list of modules to be loaded
 LOAD_MODULES=$(cfg_get_value "site_config" "load_modules")
 echo "bot/build.sh: LOAD_MODULES='${LOAD_MODULES}'"
@@ -63,8 +75,6 @@ if [[ ! -z ${LOAD_MODULES} ]]; then
 else
     echo "bot/build.sh: no modules to be loaded"
 fi
-
-
 
 #####################################################
 # cpu_target_arch=$(echo ${CPU_TARGET} | cut -d/ -f1)
@@ -82,7 +92,7 @@ if [ "${eessi_arch}" != "${host_arch}" ]; then
 fi
 
 #./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo} -c ~/compat.sif
-./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo}
+./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo} -g ${STORAGE}
 
 # create tarball -> should go into a separate script when this is supported by the bot
 target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
