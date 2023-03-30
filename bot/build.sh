@@ -13,7 +13,8 @@ if [ "${eessi_arch}" != "${host_arch}" ]; then
   exit 1
 fi
 
-./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo} -c ~/compat.sif
+#./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo} -c ~/compat.sif
+./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo}
 
 # create tarball -> should go into a separate script when this is supported by the bot
 target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
