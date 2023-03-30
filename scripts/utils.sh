@@ -99,14 +99,16 @@ function get_ipv4_address {
 
 # determine container runtime
 function get_container_runtime {
-    which apptainer 2>&1 > /dev/null
-    if [[ $? -eq 0 ]]; then
-        echo "$(which apptainer)"
+    apptainer_out=$(which apptainer 2>&1)
+    exit_code=$?
+    if [[ ${exit_code} -eq 0 ]]; then
+        echo "${apptainer_out}"
         return 0
     fi
-    which singularity 2>&1 > /dev/null
-    if [[ $? -eq 0 ]]; then
-        echo "$(which singularity)"
+    singularity_out=$(which singularity 2>&1)
+    exit_code=$?
+    if [[ ${exit_code} -eq 0 ]]; then
+        echo "${singularity_out}"
         return 0
     else
         echo "false"
