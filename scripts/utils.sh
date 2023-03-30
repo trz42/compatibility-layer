@@ -101,14 +101,15 @@ function get_ipv4_address {
 function get_container_runtime {
     which apptainer 2>&1 /dev/null
     if [[ $? -eq 0 ]]; then
-        echo -n "$(which apptainer)"
+        echo "$(which apptainer)"
         return 0
     fi
     which singularity 2>&1 /dev/null
     if [[ $? -eq 0 ]]; then
-        echo -n "$(which singularity)"
+        echo "$(which singularity)"
         return 0
+    else
+        echo "false"
+        return 1
     fi
-    echo "false"
-    return 1
 }
