@@ -16,7 +16,7 @@ display_help() {
   echo "  -a | --arch ARCH       - architecture to build a compatibility layer for"
   echo "                           [default/required: current host's architecture]"
   echo "  -c | --container IMG   - image file or URL defining the container to use"
-  echo "                           [default: ${CONTAINER}"
+  echo "                           [default: ${CONTAINER}]"
   echo "  -g | --storage DIR     - directory space on host machine (used for"
   echo "                           temporary data) [default: 1. TMPDIR, 2. /tmp]"
   echo "  -h | --help            - display this usage information"
@@ -97,6 +97,9 @@ echo "Using $EESSI_TMPDIR as temporary storage..."
 mkdir -p ${EESSI_TMPDIR}/cvmfs
 mkdir -p ${EESSI_TMPDIR}/home
 
+RUNTIME=$(get_container_runtime)
+check_exit_code $? "using runtime ${RUNTIME}" "oh no, neither apptainer nor singularity"
+
 # Set up paths and mount points for Apptainer
 export APPTAINER_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
 export APPTAINER_BIND="${EESSI_TMPDIR}/cvmfs:/cvmfs,${SCRIPT_DIR}:/compatibility-layer"
@@ -113,7 +116,7 @@ fi
 ANSIBLE_COMMAND="ansible-playbook ${ANSIBLE_OPTIONS} /compatibility-layer/ansible/playbooks/install.yml"
 # Finally, run Ansible inside the container to do the actual installation
 echo "Executing ${ANSIBLE_COMMAND} in ${CONTAINER}, this will take a while..."
-apptainer shell ${CONTAINER} <<EOF
+${RUNTIME} shell ${CONTAINER} <<EOF
 # The Gentoo Prefix bootstrap script will complain if $LD_LIBRARY_PATH is set
 unset LD_LIBRARY_PATH
 ${ANSIBLE_COMMAND}
