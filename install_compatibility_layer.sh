@@ -130,3 +130,6 @@ ${RUNTIME} shell ${CONTAINER} <<EOF
 unset LD_LIBRARY_PATH
 ${ANSIBLE_COMMAND}
 EOF
+
+echo "Left container; tar'ing up ${EESSI_TMPDIR} for future inspection"
+tar cvzf ${SCRIPT_DIR}/job_${SLURM_JOB_ID}_$(date +%s).tgz -C ${EESSI_TMPDIR} .
