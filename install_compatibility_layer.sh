@@ -109,6 +109,10 @@ check_exit_code ${exit_code} "using runtime ${RUNTIME}" "oh no, neither apptaine
 export APPTAINER_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
 export APPTAINER_BIND="${EESSI_TMPDIR}/cvmfs:/cvmfs,${SCRIPT_DIR}:/compatibility-layer"
 export APPTAINER_HOME="${EESSI_TMPDIR}/home:/home/${USER}"
+# also define SINGULARITY_* env vars
+export SINGULARITY_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
+export SINGULARITY_BIND="${EESSI_TMPDIR}/cvmfs:/cvmfs,${SCRIPT_DIR}:/compatibility-layer"
+export SINGULARITY_HOME="${EESSI_TMPDIR}/home:/home/${USER}"
 
 # Construct the Ansible playbook command
 ANSIBLE_OPTIONS="-e eessi_host_os=linux -e eessi_host_arch=$(uname -m)"
