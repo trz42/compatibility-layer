@@ -99,12 +99,12 @@ function get_ipv4_address {
 
 # determine container runtime
 function get_container_runtime {
-    which apptainer 2>&1 /dev/null
+    which apptainer 2>&1 > /dev/null
     if [[ $? -eq 0 ]]; then
         echo "$(which apptainer)"
         return 0
     fi
-    which singularity 2>&1 /dev/null
+    which singularity 2>&1 > /dev/null
     if [[ $? -eq 0 ]]; then
         echo "$(which singularity)"
         return 0
