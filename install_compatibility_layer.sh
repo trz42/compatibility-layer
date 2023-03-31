@@ -93,7 +93,7 @@ echo "A compatibility layer for architecture ${ARCH} will be built."
 # Make a temporary directory on the host for storing the installation and some temporary files
 TMPDIR=${STORAGE:-${TMPDIR:-/tmp}}
 mkdir -p ${TMPDIR}
-EESSI_TMPDIR=$(mktemp -d --tmpdir eessi.XXXXXXXXXX)
+EESSI_TMPDIR=$(mktemp -d --tmpdir=${TMPDIR} eessi.XXXXXXXXXX)
 echo "Using $EESSI_TMPDIR as temporary storage..."
 
 # Create temporary directories
@@ -106,11 +106,15 @@ echo "RUNTIME='${RUNTIME}'"
 check_exit_code ${exit_code} "using runtime ${RUNTIME}" "oh no, neither apptainer nor singularity"
 
 # Set up paths and mount points for Apptainer
-export APPTAINER_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
+if [[ -z ${APPTAINER_CACHEDIR} ]]; then
+  export APPTAINER_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
+fi
 export APPTAINER_BIND="${EESSI_TMPDIR}/cvmfs:/cvmfs,${SCRIPT_DIR}:/compatibility-layer"
 export APPTAINER_HOME="${EESSI_TMPDIR}/home:/home/${USER}"
 # also define SINGULARITY_* env vars
-export SINGULARITY_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
+if [[ -z ${SINGULARITY_CACHEDIR} ]]; then
+  export SINGULARITY_CACHEDIR=${EESSI_TMPDIR}/apptainer_cache
+fi
 export SINGULARITY_BIND="${EESSI_TMPDIR}/cvmfs:/cvmfs,${SCRIPT_DIR}:/compatibility-layer"
 export SINGULARITY_HOME="${EESSI_TMPDIR}/home:/home/${USER}"
 
