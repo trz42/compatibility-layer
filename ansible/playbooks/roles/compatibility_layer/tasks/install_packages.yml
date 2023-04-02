@@ -2,12 +2,13 @@
 ---
 - name: Install package set {{ package_sets }}
   ansible.builtin.command:
-    cmd: emerge "@{{ item }}"
+    cmd: emerge --noreplace "@{{ item }}"
   with_items: "{{ package_sets }}"
   tags:
     - set
 
 - name: Install additional packages
   ansible.builtin.command:
-    cmd: emerge "@{{ item }}"
+    cmd: emerge "{{ item }}"
   with_items: "{{ prefix_packages }}"
+  when: prefix_packages is iterable
