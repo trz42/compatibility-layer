@@ -2,5 +2,5 @@
 ---
 - name: Remove redundant packages
   ansible.builtin.command:
-    cmd: emerge --unmerge "{{ item }}"
+    cmd: emerge --depclean --keep-going y --verbose "{{ item }}"
   with_items: "{{ prefix_remove_packages }}"
