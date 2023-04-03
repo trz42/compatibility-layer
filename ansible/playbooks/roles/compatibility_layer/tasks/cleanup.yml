@@ -1,11 +1,16 @@
 # Clean up
 ---
+- name: Install redundant packages
+  ansible.builtin.command:
+    cmd: emerge --verbose "{{ item }}"
+  with_items: "{{ prefix_remove_packages }}"
+
 - name: Remove redundant packages from world set
   ansible.builtin.command:
-    cmd: emerge --deselect "{{ item }}"
+    cmd: emerge --deselect --verbose "{{ item }}"
   with_items: "{{ prefix_remove_packages }}"
 
 - name: Remove redundant packages
   ansible.builtin.command:
-    cmd: emerge --depclean --keep-going y --verbose "{{ item }}"
+    cmd: emerge --unmerge --keep-going=y --verbose "{{ item }}"
   with_items: "{{ prefix_remove_packages }}"
