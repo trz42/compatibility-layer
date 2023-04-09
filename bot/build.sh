@@ -87,10 +87,23 @@ eessi_repo=${job_repo:-pilot.eessi-hpc.org}
 tar_topdir=/cvmfs/${eessi_repo}/versions
 
 # fake build job: create outfile with searched for lines & empty tarball
-echo "PLAY RECAP"
-echo "failed=1"
+if [[ ${eessi_arch} == "x86_64" ]] && [[ ${eessi_repo} == *nessi* ]]; then
+    echo "check unknown case"
+    exit 1
+fi
 
-target_tgz=nessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
+echo "PLAY RECAP"
+if [[ ${eessi_arch} == "aarch64" ]]; then
+    echo "failed=1"
+else
+    echo "failed=0"
+fi
+
+if [[ ${eessi_repo} == *nessi* ]]; then
+    target_tgz=nessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
+else
+    target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
+fi
 touch ${target_tgz}
 exit 0
 
