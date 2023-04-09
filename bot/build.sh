@@ -86,6 +86,14 @@ job_repo=$(cfg_get_value "repository" "repo_name")
 eessi_repo=${job_repo:-pilot.eessi-hpc.org}
 tar_topdir=/cvmfs/${eessi_repo}/versions
 
+# fake build job: create outfile with searched for lines & empty tarball
+echo "PLAY RECAP"
+echo "failed=0"
+
+target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
+touch ${target_tgz}
+exit 0
+
 if [ "${eessi_arch}" != "${host_arch}" ]; then
   echo "Requested architecture (${eessi_arch}) is different from this machine's architecture ($(uname -m))!"
   exit 1
