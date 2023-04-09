@@ -88,9 +88,9 @@ tar_topdir=/cvmfs/${eessi_repo}/versions
 
 # fake build job: create outfile with searched for lines & empty tarball
 echo "PLAY RECAP"
-echo "failed=0"
+echo "failed=1"
 
-target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
+target_tgz=nessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
 touch ${target_tgz}
 exit 0
 
