@@ -1,5 +1,39 @@
 # Install a specified list of sets and packages.
 ---
+- name: Re-Install Meson
+  community.general.portage:
+    package: "dev-util/meson"
+    verbose: true
+    noreplace: false
+    state: present
+  vars:
+    ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
+
+#- name: Install Ninja via emerge
+#  ansible.builtin.command:
+#    cmd: "emerge --verbose --noreplace dev-util/ninja"
+#
+#- name: Install x11-base/xorg-proto via emerge
+#  ansible.builtin.command:
+#    cmd: "emerge --verbose --noreplace x11-base/xorg-proto"
+#
+- name: Re-Install Ninja
+  community.general.portage:
+    package: "dev-util/ninja"
+    verbose: true
+    noreplace: false
+    state: present
+  vars:
+    ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
+
+- name: Install x11-base/xorg-proto-2022.2
+  community.general.portage:
+    package: "x11-base/xorg-proto"
+    verbose: true
+    state: present
+  vars:
+    ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
+
 - name: Install package set {{ package_sets }}
   community.general.portage:
     package: "@{{ item }}"
