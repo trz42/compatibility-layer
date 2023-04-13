@@ -6,6 +6,7 @@
 
 ARCH=
 CONTAINER=docker://ghcr.io/eessi/bootstrap-prefix:debian11
+MODE=batch
 REPOSITORY="pilot.eessi-hpc.org"
 RESUME=
 RETAIN_TMP=0
@@ -34,6 +35,9 @@ display_help() {
   echo ""
   echo "    -h | --help"
   echo "        display this usage information"
+  echo ""
+  echo "    -m | --mode {'batch','interactive'}"
+  echo "        run container in batch mode or interactively"
   echo ""
   echo "    -r | --repository REPO"
   echo "        CVMFS repository name [default: ${REPOSITORY}]"
@@ -73,6 +77,10 @@ while [[ $# -gt 0 ]]; do
     -h|--help)
       display_help
       exit 0
+      ;;
+    -m|--mode)
+      MODE="$2"
+      shift 2
       ;;
     -r|--repository)
       REPOSITORY="$2"
@@ -183,12 +191,19 @@ fi
 ANSIBLE_COMMAND="ansible-playbook ${ANSIBLE_OPTIONS} /compatibility-layer/ansible/playbooks/install.yml"
 # Finally, run Ansible inside the container to do the actual installation
 echo "Executing ${ANSIBLE_COMMAND} in ${CONTAINER}, this will take a while..."
-${RUNTIME} shell ${CONTAINER} <<EOF
+if [[ ${MODE} == interactive ]]; then
+    echo "You may want to run"
+    echo "unset LD_LIBRARY_PATH"
+    echo "unset PKG_CONFIG_PATH"
+    ${RUNTIME} shell ${CONTAINER}
+else
+    ${RUNTIME} shell ${CONTAINER} <<EOF
 # The Gentoo Prefix bootstrap script will complain if $LD_LIBRARY_PATH is set
 unset LD_LIBRARY_PATH
 unset PKG_CONFIG_PATH
 ${ANSIBLE_COMMAND}
 EOF
+fi
 
 if [[ ${RETAIN_TMP} -eq 1 ]]; then
   echo "Left container; tar'ing up ${EESSI_TMPDIR} for future inspection"
