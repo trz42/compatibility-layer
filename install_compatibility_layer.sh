@@ -42,8 +42,8 @@ display_help() {
   echo "    -r | --repository REPO"
   echo "        CVMFS repository name [default: ${REPOSITORY}]"
   echo ""
-  echo "    -t | --resume TMPDIR"
-  echo "        tmp directory to resume from [default: None]"
+  echo "    -t | --resume TMPDIR/TGZ"
+  echo "        tmp directory or tarball to resume from [default: None]"
   echo ""
   echo "    -v | --version VERSION"
   echo "        override the EESSI stack version set in Ansible's"
@@ -145,6 +145,12 @@ else
     echo "created new temporary storage at ${EESSI_TMPDIR}"
 fi
 echo "Using $EESSI_TMPDIR as temporary storage..."
+
+# if ${RESUME} is a file (we assume it's a tgz), unpack it into ${EESSI_TMPDIR}
+if [[ ! -z ${RESUME} && -f ${RESUME} ]]; then
+  tar xf ${RESUME} -C ${EESSI_TMPDIR}
+  echo "Resuming from previous run using tarball ${RESUME} unpacked into ${EESSI_TMPDIR}"
+fi
 
 # Create temporary directories
 mkdir -p ${EESSI_TMPDIR}/cvmfs
