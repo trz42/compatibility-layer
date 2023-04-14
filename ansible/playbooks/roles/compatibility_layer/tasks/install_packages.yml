@@ -17,14 +17,14 @@
 #  ansible.builtin.command:
 #    cmd: "emerge --verbose --noreplace x11-base/xorg-proto"
 #
-- name: Re-Install Ninja
-  community.general.portage:
-    package: "dev-util/ninja"
-    verbose: true
-    noreplace: false
-    state: present
-  vars:
-    ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
+#- name: Re-Install Ninja
+#  community.general.portage:
+#    package: "dev-util/ninja"
+#    verbose: true
+#    noreplace: false
+#    state: present
+#  vars:
+#    ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
 
 - name: Install x11-base/xorg-proto-2022.2
   community.general.portage:
