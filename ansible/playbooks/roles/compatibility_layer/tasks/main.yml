@@ -20,6 +20,9 @@
   ansible.builtin.include_tasks: install_prefix.yml
   when: not startprefix.stat.exists
 
+- name: Collect linker info 1
+  ansible.builtin.include_tasks: collect_linker_info.yml
+
 - name: Set Ansible Python interpreter to the Prefix one
   ansible.builtin.set_fact:
     ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
@@ -30,8 +33,14 @@
 - name: Add EESSI overlay
   ansible.builtin.include_tasks: add_overlay.yml
 
+- name: Collect linker info 2
+  ansible.builtin.include_tasks: collect_linker_info.yml
+
 - name: Set the glibc trusted dirs
   ansible.builtin.include_tasks: set_glibc_trusted_dirs.yml
+
+- name: Collect linker info 3
+  ansible.builtin.include_tasks: collect_linker_info.yml
 
 - name: Install additional packages
   ansible.builtin.include_tasks: install_packages.yml

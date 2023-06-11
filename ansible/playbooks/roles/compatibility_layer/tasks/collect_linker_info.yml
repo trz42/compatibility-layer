@@ -1,0 +1,9 @@
+# Install a specified list of sets and packages.
+---
+- name: Collect linker cache info
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
+
