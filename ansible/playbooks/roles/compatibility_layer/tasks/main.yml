@@ -36,33 +36,33 @@
 - name: Collect linker info 1-c
   ansible.builtin.include_tasks: collect_linker_info.yml
 
-- name: Add EESSI overlay
-  ansible.builtin.include_tasks: add_overlay.yml
-
-- name: Collect linker info 2
-  ansible.builtin.include_tasks: collect_linker_info.yml
-
-- name: Set the glibc trusted dirs
-  ansible.builtin.include_tasks: set_glibc_trusted_dirs.yml
-
-- name: Collect linker info 3
-  ansible.builtin.include_tasks: collect_linker_info.yml
-
-- name: Install additional packages
-  ansible.builtin.include_tasks: install_packages.yml
-
-- name: Create symlinks to host files
-  ansible.builtin.include_tasks: create_host_symlinks.yml
-
-- name: Clean up
-  ansible.builtin.include_tasks: cleanup.yml
-
-- name: Test the Prefix installation
-  ansible.builtin.include_tasks: test.yml
-  tags:
-    - test
-
-- name: Save reproducibility information for this build
-  ansible.builtin.include_tasks: reprod.yml
-  tags:
-    - reprod
+####- name: Add EESSI overlay
+####  ansible.builtin.include_tasks: add_overlay.yml
+####
+####- name: Collect linker info 2
+####  ansible.builtin.include_tasks: collect_linker_info.yml
+####
+####- name: Set the glibc trusted dirs
+####  ansible.builtin.include_tasks: set_glibc_trusted_dirs.yml
+####
+####- name: Collect linker info 3
+####  ansible.builtin.include_tasks: collect_linker_info.yml
+####
+####- name: Install additional packages
+####  ansible.builtin.include_tasks: install_packages.yml
+####
+####- name: Create symlinks to host files
+####  ansible.builtin.include_tasks: create_host_symlinks.yml
+####
+####- name: Clean up
+####  ansible.builtin.include_tasks: cleanup.yml
+####
+####- name: Test the Prefix installation
+####  ansible.builtin.include_tasks: test.yml
+####  tags:
+####    - test
+####
+####- name: Save reproducibility information for this build
+####  ansible.builtin.include_tasks: reprod.yml
+####  tags:
+####    - reprod
