@@ -5,10 +5,24 @@
     cmd: emerge gentoolkit
     creates: "{{ gentoo_prefix_path }}/usr/bin/equery"
 
+- name: Collect linker cache info (add overlay after install equery)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after install equery)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
+
 - name: Install eselect-repository
   community.general.portage:
     package: eselect-repository
     state: present
+
+- name: Collect linker cache info (add overlay after install eselect)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after install eselect)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
 
 # We need git in order to add Gentoo overlays hosted on git repositories.
 - name: Install git
@@ -16,16 +30,37 @@
     package: dev-vcs/git
     state: present
 
+- name: Collect linker cache info (add overlay after install git)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after install git)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
+
 - name: Check which repositories have been installed
   ansible.builtin.command: eselect repository list -i
   register: repositories_installed
   changed_when: false
+
+- name: Collect linker cache info (add overlay after Check repo list)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after Check repo list)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
 
 - name: Add custom overlay configuration
   ansible.builtin.command:
     cmd: "eselect repository add {{ item.name }} {{ item.source }} {{ item.url }}"
   when: item.name not in repositories_installed.stdout
   loop: "{{ custom_overlays }}"
+
+- name: Collect linker cache info (add overlay after adding overlay cfg)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after adding overlay cfg)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
 
 - name: Make configuration file with overlays that can override eclasses
   ansible.builtin.copy:
@@ -38,10 +73,24 @@
         selectattr('eclass-overrides', 'equalto', True) | map(attribute='name') | join(' ')
       }}
 
+- name: Collect linker cache info (add overlay after cfg to override eclasses)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after cfg to override eclasses)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
+
 - name: Sync the repositories
   community.general.portage:
     sync: 'yes'
     verbose: true
+
+- name: Collect linker cache info (add overlay after sync repos)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after sync repos)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
 
 - name: Find all files and directories in the etc/portage directory of the overlay
   ansible.builtin.find:
@@ -49,6 +98,13 @@
     paths: "{{ gentoo_prefix_path }}/var/db/repos/{{ item.name }}/etc/portage"
   loop: "{{ custom_overlays }}"
   register: find_configs
+
+- name: Collect linker cache info (add overlay after find in etc/portage)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after find in etc/portage)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
 
 - name: Make symlinks to the portage settings in the custom overlay
   ansible.builtin.file:
@@ -58,3 +114,10 @@
     force: true
   with_items:
     "{{ find_configs.results | rejectattr('files', 'equalto', []) | map(attribute='files') | list }}"
+
+- name: Collect linker cache info (add overlay after make symlinks to portage)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (add overlay after make symlinks to portage)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
