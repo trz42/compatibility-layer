@@ -180,29 +180,29 @@
   tags:
     - build_prefix
 
-- name: "Find files and directories in $EPREFIX/var/tmp"
-  ansible.builtin.find:
-    path: "{{ gentoo_prefix_path }}/var/tmp"
-    file_type: any
-    recurse: false
-  register: var_tmp_contents
-
-- name: "Clean up all files and directories found in $EPREFIX/var/tmp"
-  ansible.builtin.file:
-    path: "{{ item.path }}"
-    state: absent
-  with_items: "{{ var_tmp_contents.files }}"
-
-- name: "Check if startprefix script has been created"
-  ansible.builtin.stat:
-    path: "{{ gentoo_prefix_path }}/startprefix"
-  register: startprefix
-  tags:
-    - build_prefix
-
-- name: "Fail if startprefix script has not been created"
-  ansible.builtin.fail:
-    msg: "The resulting Gentoo Prefix installation does not have a startprefix script. Something went wrong!"
-  when: not startprefix.stat.exists
-  tags:
-    - build_prefix
+####- name: "Find files and directories in $EPREFIX/var/tmp"
+####  ansible.builtin.find:
+####    path: "{{ gentoo_prefix_path }}/var/tmp"
+####    file_type: any
+####    recurse: false
+####  register: var_tmp_contents
+####
+####- name: "Clean up all files and directories found in $EPREFIX/var/tmp"
+####  ansible.builtin.file:
+####    path: "{{ item.path }}"
+####    state: absent
+####  with_items: "{{ var_tmp_contents.files }}"
+####
+####- name: "Check if startprefix script has been created"
+####  ansible.builtin.stat:
+####    path: "{{ gentoo_prefix_path }}/startprefix"
+####  register: startprefix
+####  tags:
+####    - build_prefix
+####
+####- name: "Fail if startprefix script has not been created"
+####  ansible.builtin.fail:
+####    msg: "The resulting Gentoo Prefix installation does not have a startprefix script. Something went wrong!"
+####  when: not startprefix.stat.exists
+####  tags:
+####    - build_prefix

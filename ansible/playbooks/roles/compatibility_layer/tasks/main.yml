@@ -23,19 +23,19 @@
 - name: Collect linker info 1
   ansible.builtin.include_tasks: collect_linker_info.yml
 
-- name: Set Ansible Python interpreter to the Prefix one
-  ansible.builtin.set_fact:
-    ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
-
-- name: Collect linker info 1-b
-  ansible.builtin.include_tasks: collect_linker_info.yml
-
-- name: Configure the Prefix
-  ansible.builtin.include_tasks: prefix_configuration.yml
-
-- name: Collect linker info 1-c
-  ansible.builtin.include_tasks: collect_linker_info.yml
-
+####- name: Set Ansible Python interpreter to the Prefix one
+####  ansible.builtin.set_fact:
+####    ansible_python_interpreter: "{{ gentoo_prefix_path }}/usr/bin/python3"
+####
+####- name: Collect linker info 1-b
+####  ansible.builtin.include_tasks: collect_linker_info.yml
+####
+####- name: Configure the Prefix
+####  ansible.builtin.include_tasks: prefix_configuration.yml
+####
+####- name: Collect linker info 1-c
+####  ansible.builtin.include_tasks: collect_linker_info.yml
+####
 ####- name: Add EESSI overlay
 ####  ansible.builtin.include_tasks: add_overlay.yml
 ####
