@@ -15,6 +15,21 @@
 # when building older GCC versions with EasyBuild in the software layer.
 # (see https://github.com/EESSI/software-layer/issues/151).
 # Note: the selected GCC version must be installed (cfr. EESSI set in gentoo-overlay)
+
+- name: Collect linker cache info (prefix before gcc-config)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (prefix before gcc-config)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
+
 - name: Make specific GCC version the default compiler
   ansible.builtin.command: "{{ gentoo_prefix_path }}/usr/bin/gcc-config {{ prefix_default_gcc }}"
   changed_when: false
+
+- name: Collect linker cache info (prefix after gcc-config)
+  ansible.builtin.shell: ldconfig -p | grep libg
+  register: ldconfig
+
+- name: Print linker cache info (prefix after gcc-config)
+  ansible.builtin.debug: msg="{{ ldconfig.stdout }}"
