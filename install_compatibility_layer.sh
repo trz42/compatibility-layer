@@ -38,8 +38,11 @@ display_help() {
   echo "    -r | --repository REPO"
   echo "        CVMFS repository name [default: ${REPOSITORY}]"
   echo ""
-  echo "    -t | --resume TMPDIR"
-  echo "        tmp directory to resume from [default: None]"
+  echo "    -u | --resume TGZ/DIR"
+  echo "        resume a previous run from a tarball or a directory,"
+  echo "        where DIR points to a previously used tmp directory"
+  echo "        and TGZ is the path to a tarball containing the contents"
+  echo "        of the tmp directory of a previous run [default: None]"
   echo ""
   echo "    -v | --version VERSION"
   echo "        override the EESSI stack version set in Ansible's"
@@ -129,19 +132,35 @@ echo "A compatibility layer for architecture ${ARCH} will be built."
 # Make a temporary directory on the host for storing the installation and some temporary files
 if [[ ! -z ${RESUME} ]] && [[ -d ${RESUME} ]]; then
     EESSI_TMPDIR=${RESUME}
-    echo "using previous temporary storage at ${RESUME} to resume work"
+    echo "using previous temporary storage at ${EESSI_TMPDIR} to resume work"
 else
-    TMPDIR=${STORAGE:-${TMPDIR:-/tmp}}
+    # we need a tmp location (and possibly init it with ${RESUME} if it was not a directory)
+    # as location for temporary data use in the following order$
+    #   a. command line argument -l|--host-storage$
+    #   b. env var TMPDIR$
+    #   c. /tmp$
+    # note, we ensure that (a) takes precedence by setting TMPDIR to STORAGE$
+    #     if STORAGE is not empty$
+    # note, (b) & (c) are automatically ensured by using 'mktemp -d --tmpdir' to$
+    #     create a temporary directory$
+    export TMPDIR=${STORAGE:-${TMPDIR:-/tmp}}
+    # mktemp fails if TMPDIR does not exist, so let's create it$
     mkdir -p ${TMPDIR}
     EESSI_TMPDIR=$(mktemp -d --tmpdir=${TMPDIR} eessi.XXXXXXXXXX)
     echo "created new temporary storage at ${EESSI_TMPDIR}"
 fi
-echo "Using $EESSI_TMPDIR as temporary storage..."
-
-# Create temporary directories
-mkdir -p ${EESSI_TMPDIR}/cvmfs
-mkdir -p ${EESSI_TMPDIR}/home
-mkdir -p ${EESSI_TMPDIR}/tmp
+#echo "Using $EESSI_TMPDIR as temporary storage..."
+# if ${RESUME} is a file (assume a tgz), unpack it into ${EESSI_TMPDIR}$
+if [[ ! -z ${RESUME} && -f ${RESUME} ]]; then$
+    echo "Resuming from previous run using tarball ${RESUME}; unpacking into ${EESSI_TMPDIR}..."$
+    tar xf ${RESUME} -C ${EESSI_TMPDIR}$
+else
+    # Create temporary directories
+    echo "Making sure directories {cvmfs,home,tmp} exist under ${EESSI_TMPDIR}"
+    mkdir -p ${EESSI_TMPDIR}/cvmfs
+    mkdir -p ${EESSI_TMPDIR}/home
+    mkdir -p ${EESSI_TMPDIR}/tmp
+fi$
 
 RUNTIME=$(get_container_runtime)
 exit_code=$?
