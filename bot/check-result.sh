@@ -32,49 +32,49 @@
 #### TASK [compatibility_layer : Create Gentoo prefix path and log directory] *******
 #### changed: [localhost] => (item=/cvmfs/pilot.eessi-hpc.org/versions/2023.04/compat/linux/x86_64)
 #### changed: [localhost] => (item=/tmp/eessi-logs)
-#### 
+####
 #### TASK [compatibility_layer : Add custom overlay configuration] ******************
-#### skipping: [localhost] => (item={'name': 'eessi', 'source': 'git', 'url': 'https://github.com/trz42/gentoo-overlay.git', 'eclass-overrides': True}) 
+#### skipping: [localhost] => (item={'name': 'eessi', 'source': 'git', 'url': 'https://github.com/trz42/gentoo-overlay.git', 'eclass-overrides': True})
 #### skipping: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Make configuration file with overlays that can override eclasses] ***
 #### ok: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Sync the repositories] *****************************
 #### ok: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Run Gentoo Prefix bootstrap stages 1-3 via /tmp/bootstrap-prefix.sh /cvmfs/pilot.eessi-hpc.org/versions/2023.04/compat/linux/x86_64 noninteractive] ***
 #### changed: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Specify use flags before completing bootstrap] *****
 #### changed: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Continue Gentoo Prefix bootstrap via /tmp/bootstrap-prefix.sh /cvmfs/pilot.eessi-hpc.org/versions/2023.04/compat/linux/x86_64 noninteractive] ***
 #### changed: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : (Re)install glibc with the user-defined-trusted-dirs option] ***
 #### skipping: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Create portage env directory] **********************
 #### ok: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Add env file for glibc to make sure the user-defined-trusted-dirs is always used] ***
 #### ok: [localhost]
-#### 
+####
 #### TASK [compatibility_layer : Install package set ['eessi-2023.04-linux-x86_64']] ***
 #### ok: [localhost] => (item=eessi-2023.04-linux-x86_64)
-#### 
+####
 #### TASK [compatibility_layer : Remove redundant packages] *************************
 #### ok: [localhost] => (item=dev-lang/go)
 #### ok: [localhost] => (item=dev-lang/go-bootstrap)
-#### 
+####
 #### TASK [compatibility_layer : Run ReFrame tests] *********************************
 #### ok: [localhost]
 
 # end of job output
 #### PLAY RECAP *********************************************************************
-#### localhost                  : ok=17   changed=13   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
-#### localhost                  : ok=38   changed=3    unreachable=0    failed=0    skipped=5    rescued=0    ignored=1   
+#### localhost                  : ok=17   changed=13   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0
+#### localhost                  : ok=38   changed=3    unreachable=0    failed=0    skipped=5    rescued=0    ignored=1
 
 
 # stop as soon as something fails
