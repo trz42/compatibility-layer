@@ -17,10 +17,9 @@ jobs:
       matrix:
         EESSI_VERSION:
         # note: use string quotes here, to avoid values being interpreted as floating point values...
-        - '2021.12'
+        - '2022.11'
         EESSI_ARCH:
         - aarch64
-        - ppc64le
         - x86_64
         EESSI_OS:
         - linux
@@ -41,19 +40,19 @@ jobs:
           with:
               cvmfs_config_package: https://github.com/EESSI/filesystem-layer/releases/download/latest/cvmfs-config-eessi_latest_all.deb
               cvmfs_http_proxy: DIRECT
-              cvmfs_repositories: pilot.eessi-hpc.org
+              cvmfs_repositories: pilot.nessi.no
 
         - name: Check compat layer in EESSI pilot repository
           env:
-              EPREFIX: /cvmfs/pilot.eessi-hpc.org/versions/${{matrix.EESSI_VERSION}}/compat/linux/${{matrix.EESSI_ARCH}}
+              EPREFIX: /cvmfs/pilot.nessi.no/versions/${{matrix.EESSI_VERSION}}/compat/linux/${{matrix.EESSI_ARCH}}
           run: |
               # trigger automount
-              echo '>> ls /cvmfs/pilot.eessi-hpc.org'
-              ls /cvmfs/pilot.eessi-hpc.org
+              echo '>> ls /cvmfs/pilot.nessi.no'
+              ls /cvmfs/pilot.nessi.no
 
               # check which Stratum 1 we're connected to
-              echo '>> cvmfs_config stat -v pilot.eessi-hpc.org'
-              cvmfs_config stat -v pilot.eessi-hpc.org
+              echo '>> cvmfs_config stat -v pilot.nessi.no'
+              cvmfs_config stat -v pilot.nessi.no
 
               echo '>> ls ${EPREFIX}/startprefix'
               ls ${EPREFIX}/startprefix
