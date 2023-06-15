@@ -31,7 +31,7 @@ prefix_mask_packages: |
   # - older versions of Rust (see https://github.com/EESSI/software-layer/issues/257)
   # - older versions of cryptograhy in Python (see https://github.com/EESSI/software-layer/issues/258)
   >=dev-libs/openssl-3
-#prefix_unmask_packages: |
+prefix_unmask_packages: # |
 #  # unmask older GCC to make it installable
 #  # =sys-devel/gcc-9*
 prefix_bootstrap_use_flags: |
