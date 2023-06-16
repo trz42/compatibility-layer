@@ -97,11 +97,11 @@ fi
 eessi_tmp=${STORAGE}
 # create tarball -> should go into a separate script when this is supported by the bot
 target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
-if [ -d ${eessi_tmp}/${tar_topdir}/${eessi_version} ]; then
-  echo ">> Creating tarball ${target_tgz} from ${eessi_tmp}/${tar_topdir}..."
-  tar cfvz ${target_tgz} -C ${eessi_tmp}/${tar_topdir} ${eessi_version}/compat/${eessi_os}/${eessi_arch}
+if [ -d ${eessi_tmp}${tar_topdir}/${eessi_version} ]; then
+  echo ">> Creating tarball ${target_tgz} from ${eessi_tmp}${tar_topdir}..."
+  tar cfvz ${target_tgz} -C ${eessi_tmp}${tar_topdir} ${eessi_version}/compat/${eessi_os}/${eessi_arch}
   echo ${target_tgz} created!
 else
-  echo "Directory ${eessi_tmp}/${tar_topdir}/${eessi_version} was not created, not creating tarball."
+  echo "Directory ${eessi_tmp}${tar_topdir}/${eessi_version} was not created, not creating tarball."
   exit 1
 fi
