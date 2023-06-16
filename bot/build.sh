@@ -94,6 +94,7 @@ fi
 # option -k is used for retaining ${eessi_tmp}
 ./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo} -g ${STORAGE} -k
 
+eessi_tmp=${STORAGE}
 # create tarball -> should go into a separate script when this is supported by the bot
 target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
 if [ -d ${eessi_tmp}/${tar_topdir}/${eessi_version} ]; then
