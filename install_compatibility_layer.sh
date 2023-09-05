@@ -6,11 +6,11 @@
 
 ARCH=
 CONTAINER=docker://ghcr.io/eessi/bootstrap-prefix:debian11
-REPOSITORY="pilot.eessi-hpc.org"
+REPOSITORY="software.nessi.no"
 RESUME=
 RETAIN_TMP=0
 STORAGE=
-VERSION=2023.06
+VERSION=2023.09
 VERBOSE=
 
 display_help() {

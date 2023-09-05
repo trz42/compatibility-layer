@@ -81,9 +81,9 @@ host_arch=$(uname -m)
 eessi_arch=${cpu_target_arch:-${host_arch}}
 eessi_os=linux
 job_version=$(cfg_get_value "repository" "repo_version")
-eessi_version=${job_version:-2023.06}
+eessi_version=${job_version:-2023.09}
 job_repo=$(cfg_get_value "repository" "repo_name")
-eessi_repo=${job_repo:-pilot.eessi-hpc.org}
+eessi_repo=${job_repo:-software.eessi.io}
 tar_topdir=/cvmfs/${eessi_repo}/versions
 
 if [ "${eessi_arch}" != "${host_arch}" ]; then
