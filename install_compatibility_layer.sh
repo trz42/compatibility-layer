@@ -6,7 +6,7 @@
 
 ARCH=
 CONTAINER=docker://ghcr.io/eessi/bootstrap-prefix:debian11
-REPOSITORY="software.nessi.no"
+REPOSITORY="pilot.nessi.no"
 RESUME=
 RETAIN_TMP=0
 STORAGE=

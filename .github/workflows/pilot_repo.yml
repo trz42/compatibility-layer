@@ -1,5 +1,5 @@
 # documentation: https://help.github.com/en/articles/workflow-syntax-for-github-actions
-name: Tests for software.nessi.no
+name: Tests for pilot.nessi.no
 on:
   push:
   pull_request:
@@ -41,19 +41,19 @@ jobs:
           with:
               cvmfs_config_package: https://github.com/NorESSI/filesystem-layer/releases/download/latest/cvmfs-config-nessi_latest_all.deb
               cvmfs_http_proxy: DIRECT
-              cvmfs_repositories: software.nessi.no
+              cvmfs_repositories: pilot.nessi.no
 
         - name: Check compat layer in NESSI pilot repository
           env:
-              EPREFIX: /cvmfs/software.nessi.no/versions/${{matrix.EESSI_VERSION}}/compat/linux/${{matrix.EESSI_ARCH}}
+              EPREFIX: /cvmfs/pilot.nessi.no/versions/${{matrix.EESSI_VERSION}}/compat/linux/${{matrix.EESSI_ARCH}}
           run: |
               # trigger automount
-              echo '>> ls /cvmfs/software.nessi.no'
-              ls /cvmfs/software.nessi.no
+              echo '>> ls /cvmfs/pilot.nessi.no'
+              ls /cvmfs/pilot.nessi.no
 
               # check which Stratum 1 we're connected to
-              echo '>> cvmfs_config stat -v software.nessi.no'
-              cvmfs_config stat -v software.nessi.no
+              echo '>> cvmfs_config stat -v pilot.nessi.no'
+              cvmfs_config stat -v pilot.nessi.no
 
               echo '>> ls ${EPREFIX}/startprefix'
               ls ${EPREFIX}/startprefix

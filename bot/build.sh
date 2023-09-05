@@ -83,7 +83,7 @@ eessi_os=linux
 job_version=$(cfg_get_value "repository" "repo_version")
 eessi_version=${job_version:-2023.09}
 job_repo=$(cfg_get_value "repository" "repo_name")
-eessi_repo=${job_repo:-software.nessi.no}
+eessi_repo=${job_repo:-pilot.nessi.no}
 tar_topdir=/cvmfs/${eessi_repo}/versions
 
 if [ "${eessi_arch}" != "${host_arch}" ]; then

@@ -8,7 +8,7 @@ custom_overlays:
     url: https://github.com/NorESSI/gentoo-overlay.git
     eclass-overrides: true
 
-cvmfs_repository: software.nessi.no
+cvmfs_repository: pilot.nessi.no
 
 gentoo_prefix_path: /cvmfs/{{ cvmfs_repository }}/versions/{{ eessi_version }}/compat/{{ eessi_host_os }}/{{ eessi_host_arch }}
 
