@@ -92,9 +92,13 @@ if [ "${eessi_arch}" != "${host_arch}" ]; then
 fi
 
 # option -k is used for retaining ${eessi_tmp}
-./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo} -g ${STORAGE} -k
+# store output in local file such that the temporary directory ${STORAGE}/eessi.XXXXXXXXXX
+# can be determined
+script_out="install_stdout.log"
+./install_compatibility_layer.sh -a ${eessi_arch} -v ${eessi_version} -r ${eessi_repo} -g ${STORAGE} -k 2>&1 | tee -a ${script_out}
 
-eessi_tmp=${STORAGE}
+# eessi_tmp=${STORAGE}
+eessi_tmp=$(cat ${script_out} | grep 'To resume work add' | cut -f 2 -d \' | cut -f 2 -d ' ')
 # create tarball -> should go into a separate script when this is supported by the bot
 target_tgz=eessi-${eessi_version}-compat-linux-${eessi_arch}-$(date +%s).tar.gz
 if [ -d ${eessi_tmp}${tar_topdir}/${eessi_version} ]; then
